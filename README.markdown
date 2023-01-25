@@ -19,18 +19,9 @@ This is a quick first draft.  In particular:
 
 `g:tcs_delay_ms` - how long to wait in milliseconds for Tailwind's build to finish after saving an HTML file.  Default: `100`.
 
+Tailwind doesn't touch the output CSS file if there is no change to the CSS, in which case there's no way to detect the build has finished.  Instead we just give it time to finish.
+
 `g:tcs_css` - path to Tailwind's output CSS file.  This needs to be set.
-
-
-#### How do we know when Tailwind's build process has finished?
-
-Initially I tried to detect a change in the CSS output file's modification time using `BufWritePre` and `BufWritePost` autocommands.  However Tailwind's build finishes in tens of milliseconds while `getftime()` has a resolution of 1 second, so most of the time changes went undetected.
-
-Next I tried detecting a change in the SHA256 checksum.  At this point I realised Tailwind's build can result in the same output CSS, in which case the checksum wouldn't change.
-
-Finally I noticed that if the output CSS does not change, Tailwind does not touch the CSS file at all.  So there's simply no way to detect that the build process has finished.
-
-Now the code just delays for a short time (100ms by default) to give the build time to finish.
 
 
 ## Intellectual property
