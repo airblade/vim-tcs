@@ -1,0 +1,38 @@
+let g:tcs_executable = 'tcs'
+let g:tcs_delay_ms = 100
+
+
+function! Tcs(...)
+  if !s:prerequisites() | return | endif
+  call s:exec_tcs()
+  execute 'checktime' bufnr()
+endfunction
+
+
+function! s:prerequisites()
+  let outcome = v:true
+
+  if !executable(g:tcs_executable)
+    echoerr "'".g:tcs_executable."' is not executable. Please set g:tcs_executable"
+    let outcome = v:false
+  endif
+
+  if !exists('g:tcs_css') || !filereadable(g:tcs_css)
+    echoerr "'".g:tcs_css."' is not readable. Please set g:tcs_css"
+    let outcome = v:false
+  endif
+
+  return outcome
+endfunction
+
+
+function! s:exec_tcs()
+  call system(g:tcs_executable.' '.g:tcs_css.' '.expand('%:p'))
+endfunction
+
+
+augroup Tcs
+  autocmd!
+  autocmd FileType html setlocal autoread
+  autocmd BufWritePost *.html call timer_start(g:tcs_delay_ms, 'Tcs')
+augroup END
