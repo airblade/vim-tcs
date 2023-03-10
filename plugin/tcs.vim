@@ -9,6 +9,11 @@ function! Tcs(...)
 endfunction
 
 
+function! TcsAsync()
+  call timer_start(g:tcs_delay_ms, 'Tcs')
+endfunction
+
+
 function! s:prerequisites()
   let outcome = v:true
 
@@ -29,10 +34,3 @@ endfunction
 function! s:exec_tcs()
   call system(g:tcs_executable.' '.g:tcs_css.' '.expand('%:p'))
 endfunction
-
-
-augroup Tcs
-  autocmd!
-  autocmd FileType html setlocal autoread
-  autocmd BufWritePost *.html call timer_start(g:tcs_delay_ms, 'Tcs')
-augroup END

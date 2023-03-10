@@ -5,12 +5,28 @@ Integrates [tcs](https://github.com/airblade/tcs) (Tailwind class sorter) with V
 Whenever you write an HTML file, the plugin waits for the Tailwind build process to finish and then runs the HTML through `tcs`.
 
 
-## Shortcomings
+## Installation
 
-This is a quick first draft.  In particular:
+Install `tcs` somewhere on your `PATH`.
 
-- Assumes every HTML file is part of a Tailwind project.
-- Only supports HTML files.
+Install this plugin like every other vim plugin :)
+
+Set `g:tcs_css` to point to the CSS file which Tailwind CLI generates.
+
+I have this snippet in my vimrc:
+
+```vim
+function! s:is_tailwind()
+  return !empty(findfile('tailwind.config.js', '.;'))
+endfunction
+
+autocmd BufEnter *.html,*.slim if s:is_tailwind() |
+      \   setlocal autoread |
+      \ endif
+autocmd BufWritePost *.html,*.slim if s:is_tailwind() |
+      \   call TcsAsync() |
+      \ endif
+```
 
 
 ## Configuration
