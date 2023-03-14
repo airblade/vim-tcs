@@ -22,8 +22,11 @@ function! s:prerequisites()
     let outcome = v:false
   endif
 
-  if !exists('g:tcs_css') || !filereadable(g:tcs_css)
-    echoerr "'".g:tcs_css."' is not readable. Please set g:tcs_css"
+  if !exists('g:tcs_css')
+    echoerr "[vim-tcs] Please set g:tcs_css"
+    let outcome = v:false
+  elseif !filereadable(g:tcs_css)
+    echoerr "[vim-tcs] '".g:tcs_css."' is not readable. Please set g:tcs_css"
     let outcome = v:false
   endif
 
