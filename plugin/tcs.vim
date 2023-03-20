@@ -1,5 +1,5 @@
-let g:tcs_executable = 'tcs'
-let g:tcs_delay_ms = 100
+let g:tcs_executable = get(g:, 'tcs_executable', 'tcs')
+let g:tcs_delay_ms = get(g:, 'tcs_delay_ms', 100)
 
 
 function! Tcs(...)
