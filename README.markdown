@@ -40,6 +40,8 @@ Tailwind doesn't touch the output CSS file if there is no change to the CSS, in 
 
 `g:tcs_css` - path to Tailwind's output CSS file.  This needs to be set.
 
+`g:tcs_sticky_cursor` - whether the cursor should stick to any Tailwind class it's on if the class is moved to a different spot.  Default: `v:true`.
+
 
 ## Intellectual property
 
