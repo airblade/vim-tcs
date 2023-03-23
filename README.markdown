@@ -34,7 +34,7 @@ autocmd BufWritePost *.html,*.slim if s:is_tailwind() |
 
 `g:tcs_executable` - path to the `tcs` script.  Default: `'tcs'`.
 
-`g:tcs_delay_ms` - how long to wait in milliseconds for Tailwind's build to finish after saving an HTML file.  Default: `100`.
+`g:tcs_delay_ms` - how long to wait in milliseconds for Tailwind's build to finish after saving an HTML file.  Default: `250`.
 
 Tailwind doesn't touch the output CSS file if there is no change to the CSS, in which case there's no way to detect the build has finished.  Instead we just give it time to finish.
 
