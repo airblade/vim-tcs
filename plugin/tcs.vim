@@ -11,7 +11,7 @@ function! Tcs(...)
   endif
 
   call s:exec_tcs()
-  execute 'checktime' bufnr()
+  silent execute 'checktime' bufnr()
 
   if g:tcs_sticky_cursor
     call s:move_cursor(word, offset)
@@ -64,5 +64,10 @@ endfunction
 
 
 function! s:exec_tcs()
-  call system(g:tcs_executable.' '.g:tcs_css.' '.expand('%:p'))
+  let out = system(g:tcs_executable.' '.g:tcs_css.' '.expand('%:p'))
+  if !empty(out)
+    echohl WarningMsg
+    echo trim(out)
+    echohl None
+  endif
 endfunction
